@@ -36,7 +36,8 @@ public class Main {
         final var secondPosition = Integer.parseInt(rangeSplit[1]);
         final var ruleCharacter = ruleSplit[1].charAt(0);
 
-        return split[1].charAt(firstPosition) == ruleCharacter ||
-                split[1].charAt(secondPosition) == ruleCharacter;
+        final var word = split[1].trim();
+        return word.charAt(firstPosition - 1) == ruleCharacter ^
+                word.charAt(secondPosition - 1) == ruleCharacter;
     }
 }
