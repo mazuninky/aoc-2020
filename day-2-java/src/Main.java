@@ -5,14 +5,14 @@ import java.nio.file.Path;
 public class Main {
     public static void main(String[] args) throws IOException {
         final var answer = Files.lines(Path.of("input.txt"))
-                .map(Main::validate)
+                .map(Main::validatePart2)
                 .filter(Boolean::booleanValue)
                 .count();
         System.out.printf("Answer is %s", answer);
     }
 
     // format: 1-3 a: abcde
-    static Boolean validate(String input) {
+    static Boolean validatePart1(String input) {
         final var split = input.split(":");
         final var ruleSplit = split[0].split(" ");
         final var rangeSplit = ruleSplit[0].split("-");
@@ -20,7 +20,7 @@ public class Main {
         final var rangeEnd = Integer.parseInt(rangeSplit[1]);
         final var ruleCharacter = ruleSplit[1].charAt(0);
 
-        final var characterCounter = input.trim()
+        final var characterCounter = split[1].trim()
                 .chars()
                 .filter((character) -> character == ruleCharacter)
                 .count();
@@ -28,4 +28,15 @@ public class Main {
         return characterCounter >= rangeStart && characterCounter <= rangeEnd;
     }
 
+    static Boolean validatePart2(String input) {
+        final var split = input.split(":");
+        final var ruleSplit = split[0].split(" ");
+        final var rangeSplit = ruleSplit[0].split("-");
+        final var firstPosition = Integer.parseInt(rangeSplit[0]);
+        final var secondPosition = Integer.parseInt(rangeSplit[1]);
+        final var ruleCharacter = ruleSplit[1].charAt(0);
+
+        return split[1].charAt(firstPosition) == ruleCharacter ||
+                split[1].charAt(secondPosition) == ruleCharacter;
+    }
 }
